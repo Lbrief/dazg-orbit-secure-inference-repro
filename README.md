@@ -2,11 +2,29 @@
 
 [简体中文](README.zh-CN.md)
 
-DAZG-Orbit is a source-first, offline-buildable reproducibility repository for
-two validated CIFAR-100 execution lanes. It packages the maintained C++
-two-process runtime, fixed-point model assets, frozen evaluation inputs,
-bit-exact references, a minimal Python Q16 oracle, pinned dependencies, and
-fail-closed experiment runners.
+DAZG-Orbit is a source-first reproducibility repository for validated
+two-process fixed-point and homomorphic-encryption inference on CIFAR-100.
+
+The repository includes the maintained C++ runtime, frozen model weights,
+deterministic evaluation inputs, bit-exact references, a compact Python Q16
+oracle, pinned dependencies, and fail-closed experiment runners.
+
+## Current release scope
+
+This public release currently provides the fully audited CIFAR-100 experiment
+lanes.
+
+We follow an **audit-first staged-release policy**: an experiment is added only
+after its source tree, model identity, preprocessing, fixed-point arithmetic,
+reference outputs, two-process execution, accuracy metrics, and build
+instructions have all passed the same reproducibility checks.
+
+CIFAR-100 is released first because it offers a compact but non-trivial
+100-class benchmark for validating packing, ciphertext linear operations,
+activation semantics, numerical exactness, and accuracy preservation. Additional
+datasets, models, sample scales, and hardware profiles will be added as
+independent versioned lanes after they pass the same clean-build and validation
+process.
 
 ## Validated results
 
@@ -15,106 +33,113 @@ fail-closed experiment runners.
 | Frozen P60 diagnostic | 10 | strict exact 10/10 | Top-1 10/10; Top-5 10/10 |
 | Checkpoint 013 balanced evaluation | 100 | logits exact 100/100; mismatch 0; max delta 0 | Top-1 72/100; Top-5 91/100 |
 
-No retraining is required. The checkpoint-013 release file is a weights-only
-artifact containing 77 tensors. N=1000 is intentionally not included in this
-release.
+No retraining is required. The public checkpoint is a weights-only artifact
+containing 77 tensors.
 
-> **Security boundary.** Both validated lanes use the packaged `reveal`
-> correctness backend and declare `security_claim=0`. They validate arithmetic,
-> two-process orchestration, ciphertext linear operations, and accuracy
-> preservation. They do not establish a no-reveal end-to-end private-inference
-> deployment claim. See [docs/SECURITY_BOUNDARY.md](docs/SECURITY_BOUNDARY.md).
+N=1000 is intentionally not included in this release. It will be published as a
+separate lane after its fixed input set, oracle, execution identity, failure
+recovery, and aggregate metrics are independently audited.
 
-## Repository contents
+> **Security boundary.** The validated lanes use the packaged `reveal`
+> correctness backend and declare `security_claim=0`. They validate arithmetic
+> consistency, two-process orchestration, ciphertext linear operations, and
+> accuracy preservation. They do not establish a complete no-reveal
+> end-to-end private-inference deployment claim.
+
+## Repository structure
 
 ```text
 Datatype/ HE/ Layer/ Model/ OT/ Operator/ Utils/  DAZG-Orbit C++ runtime
 Extern/                                           pinned third-party source
 experiments/n10_p60/                              frozen N=10 lane
-experiments/n100_checkpoint013/                   checkpoint-013 balanced N=100 lane
-checkpoints/                                      weights-only checkpoint 013
+experiments/n100_checkpoint013/                   checkpoint-013 N=100 lane
+checkpoints/                                      weights-only checkpoint
 python/                                           Q16 model and oracle exporter
-scripts/                                          build, verification, and release tools
-results/                                          compact reviewed result summaries
-docs/                                             architecture and reproduction documentation
+scripts/                                          build and verification tools
+results/                                          compact reviewed summaries
+docs/                                             technical documentation
 ```
 
-Raw logs, PDFs, previous packages, build products, caches, and unrelated
-historical artifacts are excluded.
+Raw logs, PDFs, old release archives, failed historical packages, build
+products, caches, and unrelated experimental files are excluded.
 
 ## Supported environment
 
-The reference environment is Ubuntu 22.04/24.04 or WSL2 Ubuntu on x86-64 with
-AVX2. Required build tools are GCC/G++, CMake, Ninja, OpenSSL development
-headers, GMP development headers, Python 3, and NumPy. Microsoft SEAL 4.1.2,
-Intel HEXL 1.2.6, emp-tool, and emp-ot are vendored as pinned source snapshots.
+Reference platforms:
 
-Install system dependencies automatically:
+- Ubuntu 22.04 or 24.04
+- WSL2 Ubuntu
+- x86-64 CPU with AVX2
+- GCC/G++
+- CMake and Ninja
+- OpenSSL and GMP development packages
+- Python 3 and NumPy
+
+Microsoft SEAL 4.1.2, Intel HEXL 1.2.6, emp-tool, and emp-ot are included as
+pinned source snapshots.
+
+Install the required Ubuntu packages:
 
 ```bash
-./reproduce.sh setup
+bash ./reproduce.sh setup
 ```
-
-The script uses `apt`; inspect `scripts/setup_ubuntu.sh` before running it on a
-shared machine.
 
 ## Reproduce from a fresh clone
 
 ```bash
-git clone https://github.com/<OWNER>/<REPOSITORY>.git
-cd <REPOSITORY>
+git clone https://github.com/Lbrief/dazg-orbit-secure-inference-repro.git
+cd dazg-orbit-secure-inference-repro
 
-./reproduce.sh verify
-DAZG_JOBS=8 ./reproduce.sh build
-./reproduce.sh stage-s
-./reproduce.sh n10
-./reproduce.sh n100
+bash ./reproduce.sh verify
+DAZG_JOBS=8 bash ./reproduce.sh build
+bash ./reproduce.sh stage-s
+bash ./reproduce.sh n10
+bash ./reproduce.sh n100
 ```
 
-For a release archive, verify its manifest first:
+After dependencies are installed, the complete sequence can be run with:
 
 ```bash
-./reproduce.sh verify-manifest
+DAZG_JOBS=8 bash ./reproduce.sh all
 ```
 
-After dependencies are installed, the complete sequence is:
+Build products and run evidence are written under `build/` and `runs/`. Both
+directories are excluded by `.gitignore`.
 
-```bash
-DAZG_JOBS=8 ./reproduce.sh all
-```
-
-Generated build products and run evidence are written under `build/` and
-`runs/`; both directories are ignored by Git.
-
-
-### WSL note
-
-The runners support repositories located on Windows-mounted paths such as
-a Windows-mounted WSL path. JSON evidence publication includes retry and recovery logic for
-temporary DrvFS/indexer locks. A successful two-process sample is not rejected
-solely because an atomic report rename was briefly blocked.
+Using `bash ./reproduce.sh ...` is recommended because it does not depend on the
+executable permission bit being preserved by Windows-mounted filesystems or
+archive extraction tools.
 
 ## Commands
 
 | Command | Purpose |
 |---|---|
-| `./reproduce.sh setup` | Install Ubuntu build dependencies |
-| `./reproduce.sh verify-manifest` | Verify every file in a release archive |
-| `./reproduce.sh verify` | Verify assets, expected metrics, branding, source headers, paths, and syntax |
-| `./reproduce.sh build` | Build vendored HEXL/SEAL and isolated N=10/N=100 executors |
-| `./reproduce.sh stage-s` | Run the frozen checkpoint-013 Stage-S contract |
-| `./reproduce.sh n10` | Run the frozen P60 N=10 lane |
-| `./reproduce.sh n100` | Run the checkpoint-013 balanced N=100 lane |
-| `./reproduce.sh oracle-n100` | Regenerate the N=100 Q16 oracle; requires CPU PyTorch |
-| `./reproduce.sh clean` | Remove local `build/` and `runs/` |
-| `./reproduce.sh release --output PATH` | Create a checked GitHub release archive |
+| `bash ./reproduce.sh setup` | Install Ubuntu dependencies |
+| `bash ./reproduce.sh verify-manifest` | Verify a packaged release manifest |
+| `bash ./reproduce.sh verify` | Verify assets, metrics, paths, branding, and syntax |
+| `DAZG_JOBS=8 bash ./reproduce.sh build` | Build HEXL, SEAL, and both executors |
+| `bash ./reproduce.sh stage-s` | Run the checkpoint-013 Stage-S contract |
+| `bash ./reproduce.sh n10` | Reproduce the frozen P60 N=10 lane |
+| `bash ./reproduce.sh n100` | Reproduce the checkpoint-013 N=100 lane |
+| `bash ./reproduce.sh oracle-n100` | Regenerate the N=100 Q16 oracle; requires PyTorch |
+| `bash ./reproduce.sh clean` | Remove local build and run directories |
+| `bash ./reproduce.sh release --output PATH` | Create a checked source archive |
 
 ## Fail-closed acceptance gates
 
-N=10 passes only when all ten samples are strict exact and both Top-1 and Top-5
-are 10/10.
+### N=10
 
-N=100 passes only when all conditions hold:
+The N=10 lane passes only when:
+
+- all 10 samples complete;
+- server and client return code zero for every sample;
+- strict arithmetic exactness is 10/10;
+- Top-1 is 10/10;
+- Top-5 is 10/10.
+
+### N=100
+
+The N=100 lane passes only when:
 
 - completed samples: 100/100;
 - server/client return code zero: 100/100;
@@ -130,7 +155,7 @@ N=100 evaluation.
 
 ## Ciphertext acceleration
 
-DAZG-Orbit documents acceleration logic directly in the maintained source:
+The maintained source documents the main acceleration mechanisms:
 
 - block-circulant cyclic-NTT encoding;
 - sparse baby-step/giant-step scheduling;
@@ -139,27 +164,35 @@ DAZG-Orbit documents acceleration logic directly in the maintained source:
 - K3/S2 phase packing with correctness-first fallback;
 - bounded parallel share/ciphertext conversion;
 - runtime counters for rotations, `mul_plain`, `add_inplace`, communication, and
-  protocol rounds where the backend exposes them.
+  protocol rounds where supported.
 
 See [docs/CIPHERTEXT_ACCELERATION.md](docs/CIPHERTEXT_ACCELERATION.md).
 
-## Checkpoint and data assets
+## Checkpoint and evaluation assets
 
-The public checkpoint is:
+Public checkpoint:
 
 ```text
 checkpoints/dazg_orbit_checkpoint013_weights.pt
 ```
 
+Properties:
+
 - tensors: 77;
-- SHA-256: `f7db0ff0bae94d806275c23ff46ded8fbdebc8a72cbf193004e915d293c28c3e`;
-- tensor-content fingerprint: `b9d36a2e92431eac464a0f5cb8d529e28fa095ab96038bf5f040ae639bb1362f`;
-- optimizer/scheduler state: excluded;
+- SHA-256:
+  `f7db0ff0bae94d806275c23ff46ded8fbdebc8a72cbf193004e915d293c28c3e`;
+- tensor-content fingerprint:
+  `b9d36a2e92431eac464a0f5cb8d529e28fa095ab96038bf5f040ae639bb1362f`;
+- optimizer state: excluded;
+- scheduler state: excluded;
 - retraining required: false.
 
-The repository contains only the fixed evaluation tensors needed by the
-published experiments, not the complete CIFAR-100 dataset. See
-[docs/DATA_AND_WEIGHTS.md](docs/DATA_AND_WEIGHTS.md).
+The repository contains only the fixed CIFAR-100 tensors required by the
+published N=10 and N=100 experiments, not the complete CIFAR-100 dataset.
+
+Future releases will expand the public benchmark coverage with additional
+datasets, models, larger deterministic sample sets, more performance counters,
+and separately validated secure-execution configurations.
 
 ## Documentation
 
@@ -168,50 +201,21 @@ published experiments, not the complete CIFAR-100 dataset. See
 - [Ciphertext acceleration](docs/CIPHERTEXT_ACCELERATION.md)
 - [Reproducibility protocol](docs/REPRODUCIBILITY.md)
 - [Validation](docs/VALIDATION.md)
-- [v3 release validation](docs/V3_RELEASE_VALIDATION.md)
-- [v4 release validation](docs/V4_RELEASE_VALIDATION.md)
 - [Performance](docs/PERFORMANCE.md)
 - [Data and weights](docs/DATA_AND_WEIGHTS.md)
 - [Security boundary](docs/SECURITY_BOUNDARY.md)
-- [Branding and attribution](docs/BRANDING_AND_ATTRIBUTION.md)
 - [Troubleshooting](docs/TROUBLESHOOTING.md)
 - [GitHub publication](docs/GITHUB_RELEASE.md)
 
-## GitHub publication
-
-1. Create an empty GitHub repository. Do not initialise it with an additional
-   README, `.gitignore`, or license because this tree already contains them.
-2. Review `LICENSE_NOTICE.md`, choose a first-party license, and confirm that the
-   checkpoint and fixed evaluation tensors may be redistributed.
-3. Run the release checks:
-
-```bash
-./reproduce.sh verify
-DAZG_JOBS=8 ./reproduce.sh build
-./reproduce.sh stage-s
-./reproduce.sh n10
-./reproduce.sh n100
-./reproduce.sh release --output dist/dazg-orbit-secure-inference-repro.tar.gz
-```
-
-4. Commit and push the source tree, not the generated `.tar.gz`:
-
-```bash
-git init -b main
-git add .
-git status
-git commit -m "Initial DAZG-Orbit reproducibility release"
-git remote add origin https://github.com/<OWNER>/<REPOSITORY>.git
-git push -u origin main
-```
-
 ## Attribution and licensing
 
-DAZG-Orbit maintains the integration, acceleration, correctness gates, and
-reproduction layer. Accurate upstream provenance is retained in
-[NOTICE_UPSTREAM.md](NOTICE_UPSTREAM.md) and `THIRD_PARTY_LOCK.json`. Vendored
-third-party copyright and license notices are not rewritten.
+DAZG-Orbit maintains the integration, ciphertext-acceleration logic,
+correctness gates, experiment isolation, and reproducibility layer.
 
-Before making the repository public, select a license for DAZG-Orbit-maintained
-code and confirm redistribution rights for the checkpoint and fixed
-CIFAR-100-derived tensors. See [LICENSE_NOTICE.md](LICENSE_NOTICE.md).
+Upstream provenance is retained in
+[NOTICE_UPSTREAM.md](NOTICE_UPSTREAM.md) and `THIRD_PARTY_LOCK.json`.
+Third-party copyright and license notices are not rewritten.
+
+Before redistributing a public release, confirm the license for
+DAZG-Orbit-maintained code and the redistribution rights for the checkpoint and
+fixed CIFAR-100-derived tensors. See [LICENSE_NOTICE.md](LICENSE_NOTICE.md).
