@@ -1,4 +1,4 @@
-# DAZG-Orbit: DAZG-ORBIT: Certified Active-Orbit Executor Scheduling for High-Performance Homomorphic Private Inference
+# DAZG-ORBIT: Certified Active-Orbit Executor Scheduling for High-Performance Homomorphic Private Inference
 
 [简体中文](README.zh-CN.md)
 
