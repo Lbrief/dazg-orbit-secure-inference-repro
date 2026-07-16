@@ -1,0 +1,14 @@
+{
+  "schema": "dazg.checkpoint013.n100.oracle_closure.r3",
+  "status": "PASS",
+  "frozen_stage_s_table_sha256": "ad6d5faad10f0df1d06f6b0131aec7f6a2f2a1ff4e427456a819b98a930a6f49",
+  "oracle_logits_sha256": "ae2cd654ddce520317bcd3b4d0c78c7d3279c81ed46643533617d67ee2665fe7",
+  "oracle_shape": [100, 100],
+  "reference_top5_rows_exact": "100/100",
+  "top1": "72/100",
+  "top5": "91/100",
+  "sample1_stage_exact": "83/83",
+  "two_process_logits_exact": "100/100",
+  "n1000_present": false,
+  "retraining_required": false
+}

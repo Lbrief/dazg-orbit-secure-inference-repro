@@ -1,0 +1,52 @@
+{
+  "schema": "dazg.stage_s.q16_frozen_table.v1",
+  "bitwidth": 32,
+  "scale_bits": 16,
+  "clip_fp": 524288,
+  "table_len": 1048577,
+  "table_bytes": 8388616,
+  "table_sha256": "ad6d5faad10f0df1d06f6b0131aec7f6a2f2a1ff4e427456a819b98a930a6f49",
+  "probe_q16": [
+    -600000,
+    -524289,
+    -524288,
+    -524287,
+    -400000,
+    -65536,
+    -1,
+    0,
+    1,
+    65536,
+    400000,
+    524287,
+    524288,
+    524289,
+    600000,
+    663548,
+    1716707
+  ],
+  "probe_y_q16": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    -10397,
+    -1,
+    0,
+    1,
+    55139,
+    400000,
+    524287,
+    524288,
+    524289,
+    600000,
+    663548,
+    1716707
+  ],
+  "central_semantics": "direct lookup from the collected frozen checkpoint-013 Stage-S table",
+  "tails": {
+    "q<=-524288": "0",
+    "q>=524288": "q"
+  }
+}

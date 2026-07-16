@@ -1,0 +1,30 @@
+{
+  "name": "DAZGOrbit-QAHLNet-S",
+  "architecture_identity": [
+    "Q-CHAR phase-bucket channel routing at terminal H8 anchor",
+    "ARHC-L anchor tails replacing zero-benefit late K3 residuals",
+    "No H4 spatial K3 residual body",
+    "Single K3 stride-2 transition per spatial reduction",
+    "Positive-benefit architecture rule: K3 residuals only before fused-anchor stages"
+  ],
+  "widths": [
+    64,
+    128,
+    256
+  ],
+  "k3_cells": [
+    1,
+    1,
+    1
+  ],
+  "phase_buckets_h8": 4,
+  "activation": "gelu",
+  "dataset": "CIFAR-100",
+  "targets": {
+    "policy_rotation_per_sample": "240-300",
+    "policy_comm_bytes_per_sample": "220M-260M",
+    "policy_time_seconds_per_sample": "18-23"
+  },
+  "must_retrain": true,
+  "must_export_new_bridge": true
+}

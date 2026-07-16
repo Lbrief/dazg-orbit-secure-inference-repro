@@ -1,0 +1,53 @@
+{
+  "schema": "dazg.checkpoint013.n100.release_validation.r3",
+  "status": "PASS",
+  "validation_environment": "local Linux container built from the supplied DAZG-Orbit source tree and checkpoint013 assets",
+  "binary_marker": "DAZG_CHECKPOINT013_N100_FULLGRAPH_REVEAL_CONV_EXACT_R3_20260715",
+  "validated_binary_sha256": "287dc3aa1bc9d000f20989e0c21ebb2888b7ba10a173aa550460c89cf4fd9a6e",
+  "python_q16_oracle": {
+    "shape": [
+      100,
+      100
+    ],
+    "sha256": "ae2cd654ddce520317bcd3b4d0c78c7d3279c81ed46643533617d67ee2665fe7",
+    "reference_top5_rows_exact": 100,
+    "top1_correct": 72,
+    "top5_correct": 91
+  },
+  "cpp_two_process_run": {
+    "requested_samples": 100,
+    "completed_samples": 100,
+    "logits_exact_count": 100,
+    "failed_samples": [],
+    "top1_correct": 72,
+    "top5_correct": 91,
+    "sample1_stage_exact": "83/83",
+    "parallel_validation_wall_seconds": 143.90613055229187
+  },
+  "release_scope": "N=100 only",
+  "n1000_executed": false,
+  "retraining_required": false,
+  "security_boundary": {
+    "adapter_policy": "reveal",
+    "security_claim": 0,
+    "no_reveal_status": "not claimed"
+  },
+  "end_to_end_installer_validation": {
+    "status": "PASS",
+    "binary_sha256": "cb6196ee83cfcf52e2b4e129b7c03239ed17c70e816854878376803a84f5ddbd",
+    "completed_samples": 100,
+    "logits_exact_count": 100,
+    "reference_top5_exact_count": 100,
+    "top1_correct": 72,
+    "top5_correct": 91,
+    "elapsed_s": 324.928,
+    "result_archive": "dazg-stage4-checkpoint013-n100-result-20260715_120900.tar.gz"
+  },
+  "r4_installer_hardening": {
+    "status": "PASS",
+    "source_basis": "R3 source with previously recorded end-to-end N=100 validation",
+    "stage_s_env_injection": "direct subprocess environment, not shell-export dependent",
+    "stage_s_table_size_bytes": 8388616,
+    "stage_s_table_sha256": "ad6d5faad10f0df1d06f6b0131aec7f6a2f2a1ff4e427456a819b98a930a6f49"
+  }
+}

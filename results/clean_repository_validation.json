@@ -1,0 +1,145 @@
+{
+  "schema": "dazg_orbit.github_release.clean_validation.v3",
+  "status": "PASS",
+  "validated_utc": "2026-07-16",
+  "validation_mode": "fresh source-tree build and full two-process execution after DAZG-Orbit branding/header changes",
+  "offline_dependency_build": "PASS",
+  "isolated_build_trees": {
+    "n10_tail_fix": false,
+    "n100_tail_fix": true
+  },
+  "stage_s_contract": {
+    "schema": "dazg.stage_s.frozen_table.contract.v1",
+    "status": "PASS",
+    "central_minus1": -1,
+    "central_plus1": 1,
+    "positive_600000": 600000,
+    "positive_1716707": 1716707
+  },
+  "n100_preflight": {
+    "schema": "dazg.checkpoint013.n100.preflight.v3",
+    "status": "PASS",
+    "errors": [],
+    "q16_weight_count": 77,
+    "balanced_input_shape": [
+      100,
+      3,
+      32,
+      32
+    ],
+    "balanced_input_sha256": "024b8715883ebb2328c88199028f4b7f145f2ab3469e2a43b24a70581d8727bd",
+    "oracle_logits_sha256": "ae2cd654ddce520317bcd3b4d0c78c7d3279c81ed46643533617d67ee2665fe7",
+    "oracle_reference_rows_exact": 100,
+    "reference_top1": 72,
+    "reference_top5": 91,
+    "retraining_required": false,
+    "n1000_present": false,
+    "security_boundary": {
+      "adapter_policy": "reveal",
+      "security_claim": 0
+    }
+  },
+  "q16_oracle_regeneration": {
+    "status": "PASS",
+    "shape": [
+      100,
+      100
+    ],
+    "top1": 72,
+    "top5": 91,
+    "sha256": "ae2cd654ddce520317bcd3b4d0c78c7d3279c81ed46643533617d67ee2665fe7",
+    "retraining_required": false
+  },
+  "n10": {
+    "schema": "dazg_orbit.release_validation.n10.v3",
+    "status": "PASS",
+    "lane": "frozen_p60_diagnostic",
+    "source_semantics": "frozen P60 Stage-S evaluator; isolated from checkpoint-013 positive-tail fix",
+    "samples": 10,
+    "strict_exact_count": 10,
+    "logits_mismatch_total": 0,
+    "max_abs_logit_delta": 0,
+    "top1_correct": 10,
+    "top5_correct": 10,
+    "server_rc_zero_count": 10,
+    "client_rc_zero_count": 10,
+    "pair_wall_s_total": 70.740027,
+    "pair_wall_s_mean": 7.0740027,
+    "pair_wall_s_median": 7.0654745000000005,
+    "pair_wall_s_min": 6.883774,
+    "pair_wall_s_max": 7.252508,
+    "session_elapsed_s": 212.212599,
+    "he_compute_us_per_sample": 3169880.3,
+    "rotations_per_sample": 125,
+    "mul_plain_per_sample": 3463,
+    "add_inplace_per_sample": 3165,
+    "communication_bytes_per_sample": 183332572,
+    "protocol_rounds_per_sample": 75,
+    "binary_sha256": "ec570a3e191f7fd3363724a2b8702812cc646b25004bfb1174ecaf8862752891",
+    "security_boundary": {
+      "adapter_policy": "reveal",
+      "security_claim": 0
+    },
+    "raw_logs_in_release": false
+  },
+  "n100": {
+    "schema": "dazg_orbit.release_validation.n100.v3",
+    "status": "PASS",
+    "lane": "checkpoint013_balanced_n100",
+    "samples": 100,
+    "sample_pass_count": 100,
+    "logits_exact_count": 100,
+    "logits_mismatch_total": 0,
+    "max_abs_logit_delta": 0,
+    "reference_top5_exact_count": 100,
+    "top1_correct": 72,
+    "top5_correct": 91,
+    "server_rc_zero_count": 100,
+    "client_rc_zero_count": 100,
+    "pair_wall_s_total": 199.043357,
+    "pair_wall_s_mean": 1.99043357,
+    "pair_wall_s_median": 1.967819,
+    "pair_wall_s_min": 1.921572,
+    "pair_wall_s_max": 2.280324,
+    "session_elapsed_s": 338.375,
+    "binary_sha256": "7fa8ccaef9d5b2e0f2b853ef063d5e1fd2bf8c664287271e67935b6ce9290b77",
+    "input_sha256": "024b8715883ebb2328c88199028f4b7f145f2ab3469e2a43b24a70581d8727bd",
+    "oracle_sha256": "ae2cd654ddce520317bcd3b4d0c78c7d3279c81ed46643533617d67ee2665fe7",
+    "reference_sha256": "4dad044b31930810d52d2676895b36010f4798de279ed5d17dc8f9e9bb7f9d2b",
+    "n1000_executed": false,
+    "retraining_required": false,
+    "security_boundary": {
+      "adapter_policy": "reveal",
+      "security_claim": 0,
+      "reason": "checkpoint013 correctness baseline; no no-reveal deployment claim"
+    },
+    "raw_logs_in_release": false
+  },
+  "binaries": {
+    "n10": "ec570a3e191f7fd3363724a2b8702812cc646b25004bfb1174ecaf8862752891",
+    "n100": "7fa8ccaef9d5b2e0f2b853ef063d5e1fd2bf8c664287271e67935b6ce9290b77",
+    "stage_s": "afcf9ddcf6a10ec69b8c763e002c35d5f311b992ddeb4d1762c59caa6e372a4e"
+  },
+  "checkpoint": {
+    "schema": "dazg_orbit.weights_only_checkpoint.v1",
+    "tensor_count": 77,
+    "weights_file": "dazg_orbit_checkpoint013_weights.pt",
+    "weights_sha256": "f7db0ff0bae94d806275c23ff46ded8fbdebc8a72cbf193004e915d293c28c3e",
+    "tensor_content_fingerprint": "b9d36a2e92431eac464a0f5cb8d529e28fa095ab96038bf5f040ae639bb1362f",
+    "source_checkpoint_sha256": "5a103795fff72d3bbc0bcffac4839f49afe4eb1bd97541f9bab8bcc75eb98569",
+    "optimizer_state_included": false,
+    "scheduler_state_included": false,
+    "retraining_required": false,
+    "notes": "Weights-only public artifact derived without changing any model tensor."
+  },
+  "n1000_executed": false,
+  "security_claim": 0,
+  "environment": {
+    "platform": "Linux-4.4.0-x86_64-with-glibc2.41",
+    "python": "3.13.5",
+    "cmake": "cmake version 3.31.6",
+    "compiler": "c++ (Debian 14.2.0-19) 14.2.0",
+    "ninja": "1.12.1"
+  },
+  "raw_logs_in_release": false
+}

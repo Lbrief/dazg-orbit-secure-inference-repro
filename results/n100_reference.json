@@ -1,0 +1,23 @@
+{
+  "schema": "dazg.repro.n100.verified.v1",
+  "status": "PASS",
+  "samples": 100,
+  "logits_exact_count": 100,
+  "logits_mismatch_total": 0,
+  "max_abs_logit_delta": 0,
+  "reference_top5_exact_count": 100,
+  "top1_correct": 72,
+  "top5_correct": 91,
+  "pair_wall_s_total": 250.245697,
+  "pair_wall_s_mean": 2.50245697,
+  "binary_sha256": "de2c31efffd70ffb6416a35a7b2a9e5823ccd64c3e5cbd4e1f5f836b0a82d2af",
+  "reference_sha256": "67f414387c3b697202f4119bf234c61d7b97ad1b09bad7b2c2c5d166251f76d8",
+  "oracle_sha256": "ae2cd654ddce520317bcd3b4d0c78c7d3279c81ed46643533617d67ee2665fe7",
+  "security_boundary": {
+    "adapter_policy": "reveal",
+    "security_claim": 0
+  },
+  "n1000_executed": false,
+  "retraining_required": false,
+  "evidence_kind": "frozen_reference_run"
+}

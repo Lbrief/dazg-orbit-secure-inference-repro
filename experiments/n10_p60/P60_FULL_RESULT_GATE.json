@@ -1,0 +1,175 @@
+{
+  "checks": {
+    "accuracy.evaluated_samples": {
+      "actual": 10,
+      "expected": 10,
+      "matched": true
+    },
+    "accuracy.top1_correct": {
+      "actual": 10,
+      "expected": 10,
+      "matched": true
+    },
+    "accuracy.top5_correct": {
+      "actual": 10,
+      "expected": 10,
+      "matched": true
+    },
+    "correctness.chosen_candidate": {
+      "actual": "main0_pcoi",
+      "expected": "main0_pcoi",
+      "matched": true
+    },
+    "correctness.fallback_count": {
+      "actual": 0,
+      "expected": 0,
+      "matched": true
+    },
+    "correctness.firstconv_neq": {
+      "actual": 0,
+      "expected": 0,
+      "matched": true
+    },
+    "correctness.firstconv_strict_exact": {
+      "actual": true,
+      "expected": true,
+      "matched": true
+    },
+    "correctness.full10_samples_completed": {
+      "actual": 10,
+      "expected": 10,
+      "matched": true
+    },
+    "correctness.full10_strict_exact": {
+      "actual": true,
+      "expected": true,
+      "matched": true
+    },
+    "correctness.reference_echo_safe": {
+      "actual": true,
+      "expected": true,
+      "matched": true
+    },
+    "correctness.sample0_strict_exact": {
+      "actual": true,
+      "expected": true,
+      "matched": true
+    },
+    "correctness.to_h8_contract_exact": {
+      "actual": true,
+      "expected": true,
+      "matched": true
+    },
+    "correctness.to_h8_numeric_exact": {
+      "actual": true,
+      "expected": true,
+      "matched": true
+    },
+    "cost.add_inplace_per_sample": {
+      "actual": 3165.0,
+      "expected": 3165.0,
+      "matched": true
+    },
+    "cost.measurement_stage": {
+      "actual": "full_n10",
+      "expected": "full_n10",
+      "matched": true
+    },
+    "cost.mul_plain_per_sample": {
+      "actual": 3463.0,
+      "expected": 3463.0,
+      "matched": true
+    },
+    "cost.rotations_per_sample": {
+      "actual": 125.0,
+      "expected": 125.0,
+      "matched": true
+    },
+    "cost.rounds_per_sample": {
+      "actual": 75.0,
+      "expected": 75.0,
+      "matched": true
+    },
+    "failure_reason": {
+      "actual": null,
+      "expected": null,
+      "matched": true
+    },
+    "fresh_binary.bias_closure_marker": {
+      "actual": "DAZG_ORBIT_V721_BIAS_CLOSURE_ACTIVE_20260623_001",
+      "expected": "DAZG_ORBIT_V721_BIAS_CLOSURE_ACTIVE_20260623_001",
+      "matched": true
+    },
+    "fresh_binary.source_marker": {
+      "actual": "DAZG_ORBIT_V720_FRESH_20260622_210440_79213_14940",
+      "expected": "DAZG_ORBIT_V720_FRESH_20260622_210440_79213_14940",
+      "matched": true
+    },
+    "packing.to_h8_main0.block_size": {
+      "actual": 32,
+      "expected": 32,
+      "matched": true
+    },
+    "packing.to_h8_main0.capacity_ok": {
+      "actual": 1,
+      "expected": 1,
+      "matched": true
+    },
+    "packing.to_h8_main0.layout_mode": {
+      "actual": 7,
+      "expected": 7,
+      "matched": true
+    },
+    "packing.to_h8_main0.pcoi_k3s2": {
+      "actual": 1,
+      "expected": 1,
+      "matched": true
+    },
+    "packing.to_h8_main0_runtime.exact_equiv": {
+      "actual": 1,
+      "expected": 1,
+      "matched": true
+    },
+    "packing.to_h8_main0_runtime.schedule": {
+      "actual": "DAZG-ORBIT-PCOI-K3S2",
+      "expected": "DAZG-ORBIT-PCOI-K3S2",
+      "matched": true
+    },
+    "packing.to_h8_main0_runtime.semantic_loss": {
+      "actual": 0,
+      "expected": 0,
+      "matched": true
+    },
+    "security.reveal_oracle_used": {
+      "actual": true,
+      "expected": true,
+      "matched": true
+    },
+    "security.security_claim": {
+      "actual": 0,
+      "expected": 0,
+      "matched": true
+    },
+    "status": {
+      "actual": "diagnostic_n10_exact_accuracy_floor_ok",
+      "expected": "diagnostic_n10_exact_accuracy_floor_ok",
+      "matched": true
+    }
+  },
+  "failures": [],
+  "non_gating_platform_dependent_metrics": {
+    "cost.communication_bytes_per_sample": 183292766.3,
+    "cost.hecompute_us_per_sample": 2259550.6,
+    "cost.pack_weight_us_per_sample": 927226.2,
+    "cost.wall_s_per_sample": 5.306768
+  },
+  "schema": "dazg-oribt.p60-full-result-gate.v1",
+  "security_disclosure": {
+    "adapter_policy": "reveal",
+    "reveal_oracle_used": true,
+    "security_claim": 0,
+    "statement": "P60 is diagnostic correctness/accuracy evidence, not a no-reveal secure-inference result."
+  },
+  "source_report": "v721_bias_closed_exact_chain_20260712_212330_292036/final_report.json",
+  "status": "pass"
+}

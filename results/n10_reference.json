@@ -1,0 +1,22 @@
+{
+  "schema": "dazg.repro.n10.verified.v1",
+  "status": "PASS",
+  "samples": 10,
+  "top1_correct": 10,
+  "top5_correct": 10,
+  "strict_exact_count": 10,
+  "rotations_per_sample": 125.0,
+  "protocol_rounds_per_sample": 75.0,
+  "he_compute_us_per_sample": 2259550.6,
+  "wall_s_per_sample": 5.306768,
+  "communication_bytes_per_sample": 183292766.3,
+  "mul_plain_per_sample": 3463.0,
+  "add_inplace_per_sample": 3165.0,
+  "security_boundary": {
+    "adapter_policy": "reveal",
+    "reveal_oracle_used": true,
+    "security_claim": 0,
+    "statement": "P60 is diagnostic correctness/accuracy evidence, not a no-reveal secure-inference result."
+  },
+  "evidence_kind": "frozen_reference_run"
+}

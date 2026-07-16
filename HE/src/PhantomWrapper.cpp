@@ -1,0 +1,104 @@
+// DAZG-Orbit Project Source File
+// Component: HE/src/PhantomWrapper.cpp
+// Purpose: HE backend wrapper, key-switch/rotation accounting, and exact execution.
+// Maintenance: DAZG-Orbit integration, acceleration, and reproducibility layer.
+// Provenance and licenses: see NOTICE_UPSTREAM.md and LICENSE_NOTICE.md.
+// Validated scope: frozen N=10 and checkpoint-013 balanced N=100.
+// Security boundary: reveal correctness backend; security_claim=0.
+
+// DAZG-Orbit HE accounting note:
+// rotation and key-switch operations are counted at the backend boundary so
+// optimization claims can be checked against exactness and runtime evidence.
+
+#include "HE/unified/PhantomWrapper.h"
+#include <phantom/evaluate.cuh>
+
+using namespace HE;
+
+void PhantomEvaluator::negate_inplace(PhantomCiphertext &encrypted) const
+{
+    phantom::negate_inplace(context_, encrypted);
+}
+
+void PhantomEvaluator::add_inplace(PhantomCiphertext &encrypted1, const PhantomCiphertext &encrypted2) const
+{
+    phantom::add_inplace(context_, encrypted1, encrypted2);
+}
+
+void PhantomEvaluator::sub_inplace(
+    PhantomCiphertext &encrypted1, const PhantomCiphertext &encrypted2, bool negate) const
+{
+    phantom::sub_inplace(context_, encrypted1, encrypted2, negate);
+}
+
+void PhantomEvaluator::add_plain_inplace(PhantomCiphertext &encrypted, const PhantomPlaintext &plain) const
+{
+    phantom::add_plain_inplace(context_, encrypted, plain);
+}
+
+void PhantomEvaluator::sub_plain_inplace(PhantomCiphertext &encrypted, const PhantomPlaintext &plain) const
+{
+    phantom::sub_plain_inplace(context_, encrypted, plain);
+}
+
+void PhantomEvaluator::multiply_plain_inplace(PhantomCiphertext &encrypted, const PhantomPlaintext &plain) const
+{
+    phantom::multiply_plain_inplace(context_, encrypted, plain);
+}
+
+void PhantomEvaluator::multiply_plain_ntt_inplace(PhantomCiphertext &encrypted, const PhantomPlaintext &plain) const
+{
+    phantom::multiply_plain_ntt_inplace(context_, encrypted, plain);
+}
+
+void PhantomEvaluator::multiply_inplace(PhantomCiphertext &encrypted1, const PhantomCiphertext &encrypted2) const
+{
+    phantom::multiply_inplace(context_, encrypted1, encrypted2);
+}
+
+void PhantomEvaluator::relinearize_inplace(PhantomCiphertext &encrypted, const PhantomRelinKey &relin_keys) const
+{
+    phantom::relinearize_inplace(context_, encrypted, relin_keys);
+}
+
+void PhantomEvaluator::rescale_to_next(const PhantomCiphertext &encrypted, PhantomCiphertext &destination) const
+{
+    destination = std::move(phantom::rescale_to_next(context_, encrypted));
+}
+
+void PhantomEvaluator::mod_switch_to_next(const PhantomCiphertext &encrypted, PhantomCiphertext &destination) const
+{
+    destination = std::move(phantom::mod_switch_to_next(context_, encrypted));
+}
+
+void PhantomEvaluator::rotate_vector_inplace(
+    PhantomCiphertext &encrypted, int step, const PhantomGaloisKey &galois_key) const
+{
+    const auto n_full_slots = context_.key_context_data().parms().poly_modulus_degree() >> 1;
+    step %= n_full_slots;
+    if (((step + n_full_slots) % n_full_slots) == 0)
+    {
+        return;
+    }
+    phantom::rotate_inplace(context_, encrypted, step, galois_key);
+}
+
+void PhantomEvaluator::complex_conjugate_inplace(PhantomCiphertext &encrypted, const PhantomGaloisKey &galois_key) const
+{
+    phantom::rotate_inplace(context_, encrypted, 0, galois_key);
+}
+
+void PhantomEvaluator::transform_to_ntt_inplace(PhantomPlaintext &plain, size_t chain_index) const
+{
+    phantom::transform_to_ntt_inplace(context_, plain, chain_index);
+}
+
+void PhantomEvaluator::transform_to_ntt_inplace(PhantomCiphertext &encrypted) const
+{
+    phantom::transform_to_ntt_inplace(context_, encrypted);
+}
+
+void PhantomEvaluator::transform_from_ntt_inplace(PhantomCiphertext &encrypted) const
+{
+    phantom::transform_from_ntt_inplace(context_, encrypted);
+}

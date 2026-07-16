@@ -1,0 +1,51 @@
+# DAZG-Orbit Project Source File
+# Component: .github/ISSUE_TEMPLATE/bug_report.yml
+# Purpose: GitHub continuous-integration and issue-management automation.
+# Maintenance: DAZG-Orbit integration, acceleration, and reproducibility layer.
+# Provenance and licenses: see NOTICE_UPSTREAM.md and LICENSE_NOTICE.md.
+# Validated scope: frozen N=10 and checkpoint-013 balanced N=100.
+# Security boundary: reveal correctness backend; security_claim=0.
+name: Reproduction failure
+description: Report a build, exactness, or accuracy reproduction failure
+title: "[repro] "
+labels: ["reproduction"]
+body:
+  - type: markdown
+    attributes:
+      value: Do not attach credentials, private datasets, or unredacted home-directory logs.
+  - type: dropdown
+    id: lane
+    attributes:
+      label: Lane
+      options:
+        - N=10 P60
+        - N=100 checkpoint 013
+        - Build or dependency setup
+    validations:
+      required: true
+  - type: input
+    id: os
+    attributes:
+      label: OS / WSL version
+    validations:
+      required: true
+  - type: textarea
+    id: commands
+    attributes:
+      label: Commands executed
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: output
+    attributes:
+      label: First failing gate and relevant output
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Pre-checks
+      options:
+        - label: "./reproduce.sh verify passed"
+        - label: "I did not modify frozen assets or expected metrics"

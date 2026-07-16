@@ -1,0 +1,47 @@
+# DAZG-Orbit Project Source File
+# Component: .github/workflows/full-reproduction.yml
+# Purpose: GitHub continuous-integration and issue-management automation.
+# Maintenance: DAZG-Orbit integration, acceleration, and reproducibility layer.
+# Provenance and licenses: see NOTICE_UPSTREAM.md and LICENSE_NOTICE.md.
+# Validated scope: frozen N=10 and checkpoint-013 balanced N=100.
+# Security boundary: reveal correctness backend; security_claim=0.
+name: full-reproduction
+
+"on":
+  workflow_dispatch:
+
+jobs:
+  reproduce:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            build-essential cmake ninja-build pkg-config \
+            libssl-dev libgmp-dev \
+            python3 python3-numpy
+      - name: Verify and build
+        env:
+          DAZG_JOBS: "2"
+        run: |
+          ./reproduce.sh verify
+          ./reproduce.sh build
+      - name: Reproduce P60 N=10
+        run: ./reproduce.sh n10
+      - name: Reproduce checkpoint-013 N=100
+        run: ./reproduce.sh n100
+      - name: Upload compact run evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dazg-reproduction-evidence
+          path: |
+            runs/n10/**/final_report.json
+            runs/n100/**/final_report.json
+            runs/n100/**/reports/*.json
+            runs/n100/results/*.tar.gz
+          if-no-files-found: warn
+          retention-days: 14

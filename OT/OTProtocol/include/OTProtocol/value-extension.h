@@ -1,0 +1,38 @@
+// DAZG-Orbit Project Source File
+// Component: OT/OTProtocol/include/OTProtocol/value-extension.h
+// Purpose: DAZG-Orbit runtime, protocol, model, or experiment component.
+// Maintenance: DAZG-Orbit integration, acceleration, and reproducibility layer.
+// Provenance and licenses: see NOTICE_UPSTREAM.md and LICENSE_NOTICE.md.
+// Validated scope: frozen N=10 and checkpoint-013 balanced N=100.
+// Security boundary: reveal correctness backend; security_claim=0.
+#include "aux-protocols.h"
+#include "millionaire.h"
+#pragma once
+using namespace OTPrimitive;
+using namespace Utils;
+namespace OTProtocol {
+class XTProtocol {
+public:
+  Utils::NetIO *io = nullptr;
+  OTPrimitive::OTPack<Utils::NetIO> *otpack;
+  TripleGenerator<Utils::NetIO> *triple_gen = nullptr;
+  MillionaireProtocol<Utils::NetIO> *millionaire = nullptr;
+  AuxProtocols *aux = nullptr;
+  bool del_aux = false;
+  int party;
+
+  // Constructor
+  XTProtocol(int party, Utils::NetIO *io, OTPrimitive::OTPack<Utils::NetIO> *otpack,
+             AuxProtocols *auxp = nullptr);
+
+  // Destructor
+  ~XTProtocol();
+
+  void z_extend(int32_t dim, uint64_t *inA, uint64_t *outB, int32_t bwA,
+                int32_t bwB, uint8_t *msbA = nullptr);
+
+  void s_extend(int32_t dim, uint64_t *inA, uint64_t *outB, int32_t bwA,
+                int32_t bwB, uint8_t *msbA = nullptr);
+};
+
+} // namespace OTProtocol

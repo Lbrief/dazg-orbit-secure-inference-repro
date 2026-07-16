@@ -1,0 +1,32 @@
+{
+  "schema": "dazg_orbit.release_validation.n10.v3",
+  "status": "PASS",
+  "lane": "frozen_p60_diagnostic",
+  "source_semantics": "frozen P60 Stage-S evaluator; isolated from checkpoint-013 positive-tail fix",
+  "samples": 10,
+  "strict_exact_count": 10,
+  "logits_mismatch_total": 0,
+  "max_abs_logit_delta": 0,
+  "top1_correct": 10,
+  "top5_correct": 10,
+  "server_rc_zero_count": 10,
+  "client_rc_zero_count": 10,
+  "pair_wall_s_total": 70.740027,
+  "pair_wall_s_mean": 7.0740027,
+  "pair_wall_s_median": 7.0654745000000005,
+  "pair_wall_s_min": 6.883774,
+  "pair_wall_s_max": 7.252508,
+  "session_elapsed_s": 212.212599,
+  "he_compute_us_per_sample": 3169880.3,
+  "rotations_per_sample": 125,
+  "mul_plain_per_sample": 3463,
+  "add_inplace_per_sample": 3165,
+  "communication_bytes_per_sample": 183332572,
+  "protocol_rounds_per_sample": 75,
+  "binary_sha256": "ec570a3e191f7fd3363724a2b8702812cc646b25004bfb1174ecaf8862752891",
+  "security_boundary": {
+    "adapter_policy": "reveal",
+    "security_claim": 0
+  },
+  "raw_logs_in_release": false
+}

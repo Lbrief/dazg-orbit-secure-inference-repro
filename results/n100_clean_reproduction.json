@@ -1,0 +1,33 @@
+{
+  "schema": "dazg_orbit.release_validation.n100.v3",
+  "status": "PASS",
+  "lane": "checkpoint013_balanced_n100",
+  "samples": 100,
+  "sample_pass_count": 100,
+  "logits_exact_count": 100,
+  "logits_mismatch_total": 0,
+  "max_abs_logit_delta": 0,
+  "reference_top5_exact_count": 100,
+  "top1_correct": 72,
+  "top5_correct": 91,
+  "server_rc_zero_count": 100,
+  "client_rc_zero_count": 100,
+  "pair_wall_s_total": 199.043357,
+  "pair_wall_s_mean": 1.99043357,
+  "pair_wall_s_median": 1.967819,
+  "pair_wall_s_min": 1.921572,
+  "pair_wall_s_max": 2.280324,
+  "session_elapsed_s": 338.375,
+  "binary_sha256": "7fa8ccaef9d5b2e0f2b853ef063d5e1fd2bf8c664287271e67935b6ce9290b77",
+  "input_sha256": "024b8715883ebb2328c88199028f4b7f145f2ab3469e2a43b24a70581d8727bd",
+  "oracle_sha256": "ae2cd654ddce520317bcd3b4d0c78c7d3279c81ed46643533617d67ee2665fe7",
+  "reference_sha256": "4dad044b31930810d52d2676895b36010f4798de279ed5d17dc8f9e9bb7f9d2b",
+  "n1000_executed": false,
+  "retraining_required": false,
+  "security_boundary": {
+    "adapter_policy": "reveal",
+    "security_claim": 0,
+    "reason": "checkpoint013 correctness baseline; no no-reveal deployment claim"
+  },
+  "raw_logs_in_release": false
+}

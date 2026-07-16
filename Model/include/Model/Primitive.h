@@ -1,0 +1,102 @@
+// DAZG-Orbit Project Source File
+// Component: Model/include/Model/Primitive.h
+// Purpose: DAZG-Orbit runtime, protocol, model, or experiment component.
+// Maintenance: DAZG-Orbit integration, acceleration, and reproducibility layer.
+// Provenance and licenses: see NOTICE_UPSTREAM.md and LICENSE_NOTICE.md.
+// Validated scope: frozen N=10 and checkpoint-013 balanced N=100.
+// Security boundary: reveal correctness backend; security_claim=0.
+#include <OTProtocol/protocol.h>
+#include <HE/HE.h>
+#include <NonlinearLayer/ReLU.h>
+#include <NonlinearOperator/FixPoint.h>
+#include <memory>
+#include <NonlinearLayer/TFHEReLUProtocol.h>
+
+using namespace NonlinearLayer;
+#ifndef DAZG_ORBIT_USE_TFHE_RELU_HOOK
+#define DAZG_ORBIT_USE_TFHE_RELU_HOOK 1
+#endif
+
+namespace Model{
+template <typename T, typename IO=Utils::NetIO>
+class CryptoPrimitive{
+    public:
+        HE::HEEvaluator* HE;
+        NonlinearLayer::ReLU<T, IO>* relu;
+        NonlinearOperator::FixPoint<T> *fixpoint;
+        int32_t num_threads;
+        int party;
+        Datatype::CONV_TYPE conv_type = Datatype::CONV_TYPE::Nest;
+        CryptoPrimitive(int party, HE::HEEvaluator* HE, Datatype::CONV_TYPE conv_type, NonlinearLayer::ReLU<T, IO>* relu, NonlinearOperator::FixPoint<T>* fixpoint, int32_t num_threads){
+            this->HE = HE;
+            this->relu = relu;
+            this->fixpoint = fixpoint;
+            this->num_threads = num_threads;
+            this->party = party;
+            this->conv_type = conv_type;
+        }
+
+        CryptoPrimitive(int party, int32_t num_threads, int32_t bit_length, Datatype::OT_TYPE ot_type, int32_t polyModulusDegree, int32_t plainWidth, Datatype::CONV_TYPE conv_type,Datatype::LOCATION backend, string address, int port){
+            this->party = party;
+            this->conv_type = conv_type;
+            this->num_threads = num_threads;
+            this->ioArr = new IO*[num_threads];
+            this->otpackArr = new OTPrimitive::OTPack<IO>*[num_threads];
+            this->reluprotocol = new NonlinearLayer::ReLUProtocol<T, IO>*[num_threads];
+            for (int i = 0; i < num_threads; i++) {
+                this->ioArr[i] = new IO(party == ALICE ? nullptr : address.c_str(), port + i + 1);
+
+                if (ot_type == Datatype::VOLE) {
+                    this->otpackArr[i] = new VOLEOTPack<Utils::NetIO>(this->ioArr[i], party);
+                } else {
+                    this->otpackArr[i] = new IKNPOTPack<Utils::NetIO>(this->ioArr[i], party);
+                }
+
+                auto* ring_impl =
+                    new NonlinearLayer::ReLURingProtocol<T, IO>(
+                        party, bit_length, MILL_PARAM, this->otpackArr[i], ot_type);
+
+            #if DAZG_ORBIT_USE_TFHE_RELU_HOOK
+                this->reluprotocol[i] =
+                    new NonlinearLayer::TFHEReLUProtocol<T, IO>(
+                        party,
+                        this->ioArr[i],
+                        bit_length,
+                        kScale,
+                        std::unique_ptr<NonlinearLayer::ReLUProtocol<T, IO>>(ring_impl));
+            #else
+                this->reluprotocol[i] = ring_impl;
+            #endif
+            }
+            this->relu = new NonlinearLayer::ReLU<T, IO>(reluprotocol, bit_length, num_threads);
+            cout << "begin to generate fixpoint" << endl;
+            this->fixpoint = new NonlinearOperator::FixPoint<T>(party, this->otpackArr, num_threads);
+            cout << "fixpoint generated" << endl;
+            this->io = ioArr[0];
+            this->HE = new HE::HEEvaluator(io, party, polyModulusDegree, plainWidth, backend);
+            this->HE->GenerateNewKey();
+            // cout << "CryptoPrimitive constructor finished" << endl;
+        }
+
+        uint64_t get_total_comm(){
+            uint64_t totalComm = 0;
+            for (int i = 0; i < num_threads; i++) {
+                totalComm += (ioArr[i]->counter);
+            }
+            return totalComm;
+        }
+        uint64_t get_total_rounds(){
+            return ioArr[0]->num_rounds;
+        }
+        IO* get_main_io() {
+            return this->io;
+        }
+
+    private:
+        IO *io;
+        IO **ioArr;
+        OTPrimitive::OTPack<IO> **otpackArr;
+        NonlinearLayer::ReLUProtocol<T, IO> **reluprotocol;
+};
+
+}

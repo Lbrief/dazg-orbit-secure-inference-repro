@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use DAZG-Orbit, cite this software release and the associated paper."
+title: "DAZG-Orbit: Reproducible Two-Process Q16/HE Inference"
+type: software
+version: 1.1.0
+date-released: 2026-07-16
+license: "NOASSERTION"
+authors:
+  - family-names: "DAZG-Orbit contributors"
+repository-code: "https://github.com/OWNER/REPOSITORY"

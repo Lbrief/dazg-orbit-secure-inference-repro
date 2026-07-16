@@ -1,0 +1,19 @@
+{
+  "bias_closure_marker": "DAZG_ORBIT_V721_BIAS_CLOSURE_ACTIVE_20260623_001",
+  "binary": "build/v720_bin/qahl_v720_to_h8_exact_executor",
+  "installed_unix": 1783123579.8638012,
+  "p115_label": "dazg_orbit_v743r8p115_restore_exact_frozen_p60_after_p113_display_bug_20260704",
+  "p60_expected_hashes": {
+    "head_bias_sha256": "d092e36a3e11e4a5ae6835c037f6d6e6d6daf948720acc9936a68e0d8c72c71b",
+    "head_weight_sha256": "40deeb0f06ffd76541b62bd9e3c18de79d1ee24e915b40d7fcff5a45226cc80c",
+    "inventory_sha256": "eabac61804ddcdbd3a37f6cdae18d4ea4b375c691c3b22f4b2f010cd1a0eaf5b",
+    "pair_runner_py_sha256": "4af29b2318060f02a4ef7934a8790551b87ca816225374f7b979a7f06edc452d",
+    "qahl_v720_cpp_sha256": "0605bbd0a1dd1dda1478655c3941a8d3c35334e5f73f94df03ba98098c7f2b45",
+    "run_v720_py_sha256": "b0bdbf8a620b9c17638385bd765616b286500bcac380c583f0d7eae2d32a4a43",
+    "score_v720_py_sha256": "ddfd87b123523f1f2ceb249462fcb72c17eed9bda1958f6a9ec2e34bce681365"
+  },
+  "p60_frozen_zip_sha256": "8cfc8a7cf94f198ebb6aeb7a871ea6d9406b728336a00292e4700bee7117d6df",
+  "policy": "OFFICIAL_FROZEN_P60_ONLY_REPLAY; secure/no-reveal lane disabled in this restore package",
+  "schema": "dazg_orbit.v743r8p115.official_frozen_p60_restore_manifest",
+  "source_marker": "DAZG_ORBIT_V720_FRESH_20260622_210440_79213_14940"
+}

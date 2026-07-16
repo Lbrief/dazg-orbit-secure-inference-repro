@@ -1,0 +1,32 @@
+{
+  "schema": "dazg_orbit.runtime_io_recovery.v1",
+  "release": "1.1.1",
+  "observed_v3_result": "FAIL at sample 27 due pair runner rc=1",
+  "observed_pair_tmp_complete": true,
+  "observed_server_rc": 0,
+  "observed_client_rc": 0,
+  "diagnostic_sample27": {
+    "status": "PASS",
+    "logits_exact": true,
+    "logits_neq": 0,
+    "max_abs_delta": 0,
+    "reference_top5_exact": true,
+    "predicted_top5": [
+      32,
+      27,
+      91,
+      67,
+      44
+    ]
+  },
+  "fixes": [
+    "atomic rename retry",
+    "verified copy fallback",
+    "parent recovery of complete pair_report.json.tmp.*"
+  ],
+  "runtime_io_unit_test": "PASS",
+  "security_boundary": {
+    "adapter_policy": "reveal",
+    "security_claim": 0
+  }
+}

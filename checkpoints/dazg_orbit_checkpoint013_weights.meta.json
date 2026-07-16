@@ -1,0 +1,12 @@
+{
+  "schema": "dazg_orbit.weights_only_checkpoint.v1",
+  "tensor_count": 77,
+  "weights_file": "dazg_orbit_checkpoint013_weights.pt",
+  "weights_sha256": "f7db0ff0bae94d806275c23ff46ded8fbdebc8a72cbf193004e915d293c28c3e",
+  "tensor_content_fingerprint": "b9d36a2e92431eac464a0f5cb8d529e28fa095ab96038bf5f040ae639bb1362f",
+  "source_checkpoint_sha256": "5a103795fff72d3bbc0bcffac4839f49afe4eb1bd97541f9bab8bcc75eb98569",
+  "optimizer_state_included": false,
+  "scheduler_state_included": false,
+  "retraining_required": false,
+  "notes": "Weights-only public artifact derived without changing any model tensor."
+}

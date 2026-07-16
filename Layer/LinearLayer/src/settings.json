@@ -1,0 +1,13 @@
+{
+  "cmake.configureOnOpen": true,
+  "cmake.buildDirectory": "${workspaceFolder}/build",
+  "C_Cpp.default.compileCommands": "${workspaceFolder}/build/compile_commands.json",
+  "clangd.arguments": [
+    "--compile-commands-dir=${workspaceFolder}/build"
+  ],
+  "includePath": [
+    "${workspaceFolder}",
+    "${workspaceFolder}/Layer",
+    "${workspaceFolder}/Layer/LinearLayer/include"
+  ]
+}

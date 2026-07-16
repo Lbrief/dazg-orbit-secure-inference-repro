@@ -1,0 +1,29 @@
+{
+  "schema": "dazg.stage4.checkpoint013.n100.verified_oneclick.r4",
+  "package_id": "dazg-stage4-checkpoint013-n100-verified-oneclick-r4-20260715",
+  "scope": "checkpoint013 balanced N=100 correctness/accuracy only",
+  "n1000_execution": false,
+  "retraining_required": false,
+  "active_repo_baseline_executor_sha256": "f0aa6c69490b1d60175bd391e2b8b9ddfc8b9918514726330d371ca68eca72e0",
+  "checkpoint_sha256": "5a103795fff72d3bbc0bcffac4839f49afe4eb1bd97541f9bab8bcc75eb98569",
+  "policy_sha256": "90c4a90671f81cb88fdaf373693bacf9146897db494d709d10cac7582f42adaf",
+  "stage_s_table_sha256": "ad6d5faad10f0df1d06f6b0131aec7f6a2f2a1ff4e427456a819b98a930a6f49",
+  "oracle_logits_sha256": "ae2cd654ddce520317bcd3b4d0c78c7d3279c81ed46643533617d67ee2665fe7",
+  "expected_logits_exact": "100/100",
+  "expected_top1": "72/100",
+  "expected_top5": "91/100",
+  "source_marker": "DAZG_CHECKPOINT013_N100_FULLGRAPH_REVEAL_CONV_EXACT_R3_20260715",
+  "security_boundary": {
+    "adapter_policy": "reveal",
+    "security_claim": 0,
+    "reason": "all convolutions use the exact Q16 reveal/re-share correctness backend; this is not a no-reveal deployment claim"
+  },
+  "python_requirement": "No retraining. PyTorch is optional and used only to regenerate the bundled frozen Q16 oracle.",
+  "release_note": "Locally validated end-to-end on all 100 balanced samples: logits exact 100/100, Top-1 72/100, Top-5 91/100.",
+  "installer_hardening": {
+    "status": "PASS",
+    "change": "Stage-S contract runner injects DAZG_ORBIT_STAGE_S_Q16_TABLE directly into the child process after byte-size and SHA-256 verification",
+    "model_source_changed": false,
+    "oracle_changed": false
+  }
+}

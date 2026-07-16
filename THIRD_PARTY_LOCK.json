@@ -1,0 +1,20 @@
+{
+  "SEC-PPDL_upstream": {
+    "url": "https://github.com/Tianshi-Xu/SEC-PPDL.git",
+    "commit": "8d71a235f786efff9622ccc5454dee8e876cbaa2"
+  },
+  "Microsoft_SEAL": {
+    "version": "4.1.2",
+    "commit": "7a931d55ba84a40b85938f6ca3ac206f18654093"
+  },
+  "Intel_HEXL": {
+    "version": "1.2.6",
+    "commit": "66940b64e94daffa1f25d4f3e2f96b1ea98ebdb6"
+  },
+  "emp_tool": {
+    "commit": "44b1ddef7bf6bb8eefeede89f27084a96d1d349c"
+  },
+  "emp_ot": {
+    "commit": "0342af547fa80477e866c56b5e2632315ae51721"
+  }
+}

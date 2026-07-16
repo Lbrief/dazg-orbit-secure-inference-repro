@@ -1,0 +1,54 @@
+{
+  "checks": {
+    "head_bias_sha256": {
+      "actual": "d092e36a3e11e4a5ae6835c037f6d6e6d6daf948720acc9936a68e0d8c72c71b",
+      "expected": "d092e36a3e11e4a5ae6835c037f6d6e6d6daf948720acc9936a68e0d8c72c71b",
+      "matched": true,
+      "path": "head.2.bias.p60.block4.q16.u64.npy"
+    },
+    "head_weight_sha256": {
+      "actual": "40deeb0f06ffd76541b62bd9e3c18de79d1ee24e915b40d7fcff5a45226cc80c",
+      "expected": "40deeb0f06ffd76541b62bd9e3c18de79d1ee24e915b40d7fcff5a45226cc80c",
+      "matched": true,
+      "path": "head.2.weight.p60.block4.q16.u64.npy"
+    },
+    "inventory_sha256": {
+      "actual": "eabac61804ddcdbd3a37f6cdae18d4ea4b375c691c3b22f4b2f010cd1a0eaf5b",
+      "expected": "eabac61804ddcdbd3a37f6cdae18d4ea4b375c691c3b22f4b2f010cd1a0eaf5b",
+      "matched": true,
+      "path": "Test/qahl_v720_to_h8_exact_audited_chain/src/qahl_v645_src/qahl_v645_inventory.hpp"
+    },
+    "pair_runner_py_sha256": {
+      "actual": "4af29b2318060f02a4ef7934a8790551b87ca816225374f7b979a7f06edc452d",
+      "expected": "4af29b2318060f02a4ef7934a8790551b87ca816225374f7b979a7f06edc452d",
+      "matched": true,
+      "path": "Test/qahl_v720_to_h8_exact_audited_chain/pair_runner.py"
+    },
+    "qahl_v720_cpp_sha256": {
+      "actual": "0605bbd0a1dd1dda1478655c3941a8d3c35334e5f73f94df03ba98098c7f2b45",
+      "expected": "0605bbd0a1dd1dda1478655c3941a8d3c35334e5f73f94df03ba98098c7f2b45",
+      "matched": true,
+      "path": "Test/qahl_v720_to_h8_exact_audited_chain/src/qahl_v720_to_h8_exact_executor.cpp"
+    },
+    "run_v720_py_sha256": {
+      "actual": "b0bdbf8a620b9c17638385bd765616b286500bcac380c583f0d7eae2d32a4a43",
+      "expected": "b0bdbf8a620b9c17638385bd765616b286500bcac380c583f0d7eae2d32a4a43",
+      "matched": true,
+      "path": "Test/qahl_v720_to_h8_exact_audited_chain/run_v720.py"
+    },
+    "score_v720_py_sha256": {
+      "actual": "ddfd87b123523f1f2ceb249462fcb72c17eed9bda1958f6a9ec2e34bce681365",
+      "expected": "ddfd87b123523f1f2ceb249462fcb72c17eed9bda1958f6a9ec2e34bce681365",
+      "matched": true,
+      "path": "Test/qahl_v720_to_h8_exact_audited_chain/score_v720.py"
+    }
+  },
+  "failures": [],
+  "manifest_policy": "OFFICIAL_FROZEN_P60_ONLY_REPLAY; secure/no-reveal lane disabled in this restore package",
+  "manifest_schema": "dazg_orbit.v743r8p115.official_frozen_p60_restore_manifest",
+  "p60_frozen_zip_sha256": "8cfc8a7cf94f198ebb6aeb7a871ea6d9406b728336a00292e4700bee7117d6df",
+  "schema": "dazg-oribt.p60-baseline-check.v1",
+  "security_scope": "verified P60 diagnostic/reveal baseline; not a secure no-reveal result",
+  "status": "pass",
+  "strict": true
+}
