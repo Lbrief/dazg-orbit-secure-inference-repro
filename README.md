@@ -31,7 +31,7 @@ process.
 | Lane | Samples | Arithmetic gate | Accuracy gate |
 |---|---:|---:|---:|
 | Frozen P60 diagnostic | 10 | strict exact 10/10 | Top-1 10/10; Top-5 10/10 |
-| Checkpoint 013 balanced evaluation | 100 | logits exact 100/100; mismatch 0; max delta 0 | Top-1 72/100; Top-5 91/100 |
+| Checkpoint 013 balanced evaluation | 100 | logits exact 100/100; mismatch 0; max delta 0 | Top-1 76/100; Top-5 91/100 |
 
 No retraining is required. The public checkpoint is a weights-only artifact
 containing 77 tensors.
@@ -147,7 +147,7 @@ The N=100 lane passes only when:
 - mismatched logit elements: 0;
 - maximum absolute logit delta: 0;
 - frozen reference Top-5 rows exact: 100/100;
-- Top-1: 72/100;
+- Top-1: 74/100;
 - Top-5: 91/100.
 
 Sample 0 and the first ten balanced samples are hard gates before the remaining
